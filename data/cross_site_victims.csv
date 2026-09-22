@@ -1,0 +1,7 @@
+match_key,groups,n_groups,group,victim,post_date,in_window,country_name,domain
+allmaxnutrition.com,"INC Ransom, Play",2,INC Ransom,allmaxnutrition.com,2025-08-27,no,Canada,allmaxnutrition.com
+allmaxnutrition.com,"INC Ransom, Play",2,Play,ALLMAX,2026-01-26,yes,Canada,allmaxnutrition.com
+gdz.com,"Play, Qilin",2,Play,GDZ Computer Services,2025-09-10,no,United States,gdz.com
+gdz.com,"Play, Qilin",2,Qilin,GDZ Computer Services,2026-01-08,yes,,gdz.com
+jubileejobs.org,"INC Ransom, Qilin",2,INC Ransom,jubileejobs.org,2025-07-07,no,United States,jubileejobs.org
+jubileejobs.org,"INC Ransom, Qilin",2,Qilin,Jubilee Jobs,2026-07-25,yes,,jubileejobs.org
