@@ -79,7 +79,8 @@ def main():
     args = ap.parse_args()
 
     seen, rows, dupes = set(), [], 0
-    for f in sorted(args.files):
+    # Newest capture first so current visit counts win over older captures.
+    for f in sorted(args.files, reverse=True):
         for row in parse_file(f):
             if row["id"] in seen:
                 dupes += 1

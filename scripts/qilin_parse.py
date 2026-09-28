@@ -17,7 +17,7 @@ from urllib.parse import urlparse, parse_qs
 
 from bs4 import BeautifulSoup
 
-DATE_RE = re.compile(r"[A-Z][a-z]{2} \d{1,2}, \d{4}")
+DATE_RE = re.compile(r"([A-Z][a-z]{2})[a-z]* (\d{1,2}), (\d{4})")
 PHOTOS_RE = re.compile(r"(\d+)\s*photos", re.I)
 
 
@@ -42,7 +42,10 @@ def parse_file(path):
         col = more.find_parent("div", class_="col-md-6")
         timer = col.select_one(".countdown-timer") if col else None
         if uid and timer and timer.get("data-remaining"):
-            countdowns[uid] = int(timer["data-remaining"])
+            try:
+                countdowns[uid] = int(float(timer["data-remaining"]))
+            except ValueError:
+                pass
 
     rows = []
     for title in soup.find_all("a", class_="item_box-title"):
@@ -53,6 +56,8 @@ def parse_file(path):
         info = card.find("p", class_="item_box-info") if card else None
         if info:
             industry = clean(info.get_text())
+            if industry == "0":   # the site prints "0" when no industry is set
+                industry = ""
 
         company_url = ""
         link = card.find("a", class_="item_box-info__link") if card else None
@@ -63,7 +68,7 @@ def parse_file(path):
         for icon in card.find_all("img", src=re.compile(r"clock\.png$")) if card else []:
             m = DATE_RE.search(icon.parent.get_text())
             if m:
-                post_date = datetime.strptime(m.group(), "%b %d, %Y").strftime("%Y-%m-%d")
+                post_date = datetime.strptime(" ".join(m.groups()), "%b %d %Y").strftime("%Y-%m-%d")
                 break
 
         photos = ""
@@ -94,7 +99,9 @@ def main():
     args = ap.parse_args()
 
     seen, rows, dupes = set(), [], 0
-    for f in args.files:
+    # Newest capture first (filenames start with the capture date), so current
+    # status wins over older captures.
+    for f in sorted(args.files, reverse=True):
         for row in parse_file(f):
             if row["uuid"] in seen:
                 dupes += 1

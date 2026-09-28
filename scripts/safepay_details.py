@@ -31,10 +31,16 @@ def slug(detail_path):
 
 def parse_detail(html_text):
     soup = BeautifulSoup(html_text, "html.parser")
+    for tag in soup(["script", "style"]):
+        tag.decompose()
     text = soup.get_text("\n", strip=True)
 
+    # The post date sits next to the calendar icon. Only fall back to the first
+    # datetime in the visible text if that element is missing.
     date, dt = "", ""
-    m = DATETIME.search(text)
+    icon = soup.select_one("i.bi-calendar")
+    m = DATETIME.search(icon.parent.get_text(" ", strip=True)) if icon and icon.parent else None
+    m = m or DATETIME.search(text)
     if m:
         date, dt = m.group(1), f"{m.group(1)} {m.group(2)}"
 
@@ -44,7 +50,7 @@ def parse_detail(html_text):
         clicks = re.sub(r"[^\d]", "", m.group(1))
 
     body = ""
-    holder = soup.select_one(".post-body") or soup.select_one(".container")
+    holder = soup.select_one(".post-body")
     if holder:
         body = re.sub(r"\s+", " ", holder.get_text(" ", strip=True)).strip()
 
@@ -57,12 +63,21 @@ def main():
     ap.add_argument("outfile")
     ap.add_argument("--base", help="site base URL; omit to parse cached pages only")
     ap.add_argument("--offline", action="store_true", help="never fetch, cache only")
+    ap.add_argument("--seed", help="earlier safepay.csv; rows whose detail_path is already "
+                    "dated there reuse that date instead of re-fetching the page")
     args = ap.parse_args()
 
     CACHE.mkdir(parents=True, exist_ok=True)
     rows = list(csv.DictReader(open(args.infile, encoding="utf-8")))
     if not rows:
         sys.exit("input CSV is empty")
+
+    seed = {}
+    if args.seed:
+        for r in csv.DictReader(open(args.seed, encoding="utf-8")):
+            if r.get("detail_path") and r.get("post_date"):
+                seed[r["detail_path"].strip()] = r
+    seeded = 0
 
     session = None
     if args.base and not args.offline:
@@ -78,12 +93,23 @@ def main():
             continue
 
         f = CACHE / f"{slug(path)}.html"
+        if not f.exists() and path in seed:
+            old = seed[path]
+            if not row.get("post_date"):
+                row["post_date"] = old["post_date"]
+                filled += 1
+            row["post_datetime"] = old.get("post_datetime", "")
+            row["clicks"] = old.get("clicks", "")
+            seeded += 1
+            continue
         if not f.exists() and session:
-            url = args.base.rstrip("/") + path
+            url = args.base.rstrip("/") + "/" + path.lstrip("/")
             for attempt in (1, 2, 3):
                 try:
                     r = session.get(url, timeout=120)
                     r.raise_for_status()
+                    if "bi-calendar" not in r.text:
+                        raise ValueError("no post date on page (interstitial or error page?)")
                     f.write_text(r.text, encoding="utf-8")
                     fetched += 1
                     break
@@ -126,7 +152,7 @@ def main():
     dated = [r["post_date"] for r in rows if r.get("post_date")]
     print()
     print(f"rows:            {len(rows)}")
-    print(f"pages fetched:   {fetched} (cached {cached}, failed {failed})")
+    print(f"pages fetched:   {fetched} (cached {cached}, seeded {seeded}, failed {failed})")
     print(f"dates filled in: {filled}")
     print(f"rows with date:  {len(dated)} of {len(rows)}")
     if dated:

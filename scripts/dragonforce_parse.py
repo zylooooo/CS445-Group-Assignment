@@ -14,7 +14,7 @@ import re
 import sys
 from pathlib import Path
 
-GB = 1024 ** 3
+GB = 1000 ** 3   # decimal GB, matching the site's own "400 GB+" labels
 
 
 def clean(text):
@@ -33,16 +33,20 @@ def parse_file(path):
         desc_full = str(p.get("description") or "")
         # The first line is the group's own summary label, e.g. "Full DATA 400 GB+".
         headline = clean(desc_full.split("\n")[0]) if desc_full.strip() else ""
-        weight = p.get("weight") or 0
+        try:
+            weight = int(p.get("weight") or 0)   # the API sends this as a string
+        except (TypeError, ValueError):
+            weight = 0
 
         rows.append({
             "group": "dragonforce",
             "victim": clean(p.get("name")),
             "website": clean(p.get("website")),
             "address": clean(p.get("address")),
-            "data_size_bytes": weight,
+            "data_size_bytes": weight or "",
             "data_size_gb": round(weight / GB, 2) if weight else "",
-            "tags": "; ".join(clean(t) for t in (p.get("tags") or [])),
+            "tags": "; ".join(clean(t.get("tag") if isinstance(t, dict) else t)
+                              for t in (p.get("tags") or [])),
             "headline": headline,
             "description": clean(desc_full),
             "post_date": iso_date(p.get("created_at")),
@@ -61,7 +65,8 @@ def main():
     args = ap.parse_args()
 
     seen, rows, dupes = set(), [], 0
-    for f in sorted(args.files):
+    # Newest capture first so current timer/status fields win.
+    for f in sorted(args.files, reverse=True):
         for row in parse_file(f):
             if row["uuid"] in seen:
                 dupes += 1

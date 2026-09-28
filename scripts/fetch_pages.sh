@@ -16,29 +16,40 @@ LAST="${3:-60}"
 MARKER="${4:-}"
 DATE=$(date +%F)
 mkdir -p "$OUT"
-prev=""
+seen_hashes=" "
 
 for i in $(seq 1 "$LAST"); do
   url="${TEMPLATE//\{page\}/$i}"
   f="$OUT/${DATE}_page$(printf '%03d' "$i").html"
   ok=0
   for try in 1 2 3; do
-    if curl -s -L -c "$OUT/cookies.txt" -b "$OUT/cookies.txt" \
-         --socks5-hostname 127.0.0.1:9050 --max-time 120 -o "$f" "$url"; then
-      ok=1; break
-    fi
-    echo "page $i attempt $try failed, retrying in 10s..."
+    code=$(curl -s -L -c "$OUT/cookies.txt" -b "$OUT/cookies.txt" \
+         --socks5-hostname 127.0.0.1:9050 --max-time 120 -o "$f" -w '%{http_code}' "$url")
+    if [ "$code" = "200" ]; then ok=1; break; fi
+    if [ "$code" = "404" ]; then ok=404; break; fi
+    echo "page $i attempt $try failed (HTTP $code), retrying in 10s..."
     sleep 10
   done
-  [ "$ok" -ne 1 ] && { echo "page $i failed 3 times, skipping"; continue; }
+  # Only a 404 means "past the last page". Any other error (5xx, timeout) is retried
+  # and, if it persists, reported as a gap rather than mistaken for the end.
+  if [ "$ok" = "404" ]; then echo "page $i is 404, reached the end"; rm -f "$f"; break; fi
+  [ "$ok" -ne 1 ] && { echo "page $i failed 3 times, skipping (GAP: re-run later)"; rm -f "$f"; continue; }
 
-  hash=$(md5sum "$f" | cut -d' ' -f1)
-  if [ "$hash" = "$prev" ]; then
-    echo "page $i is identical to the previous page, reached the end"
+  # Hash the marker lines only, so changing counters or timestamps elsewhere on the
+  # page don't hide a repeat.
+  if [ -n "$MARKER" ]; then
+    hash=$(grep -F -A2 "$MARKER" "$f" | md5sum | cut -d' ' -f1)
+  else
+    hash=$(md5sum "$f" | cut -d' ' -f1)
+  fi
+  # Compare against every earlier page, not just the previous one: some sites wrap
+  # back to page 1 past their last page.
+  if [[ "$seen_hashes" == *" $hash "* ]]; then
+    echo "page $i repeats an earlier page, reached the end"
     rm -f "$f"
     break
   fi
-  prev="$hash"
+  seen_hashes+="$hash "
 
   if [ -n "$MARKER" ]; then
     n=$(grep -c "$MARKER" "$f")

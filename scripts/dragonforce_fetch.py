@@ -64,3 +64,6 @@ while True:
     time.sleep(3 + random.random() * 4)
 
 print(f"done. {len(seen)} unique publications in {OUT}")
+if total and len(seen) < total:
+    print(f"INCOMPLETE: {total - len(seen)} of {total} missing, re-run against another mirror")
+    sys.exit(1)

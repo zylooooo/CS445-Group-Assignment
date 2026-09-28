@@ -12,7 +12,7 @@ import argparse
 import csv
 import re
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from bs4 import BeautifulSoup
@@ -26,7 +26,10 @@ def parse_ts(value):
     if not value:
         return None
     try:
-        return datetime.fromisoformat(value)
+        # Python < 3.11 rejects a trailing "Z"; normalise to naive UTC so
+        # created/end can always be subtracted.
+        ts = datetime.fromisoformat(value.strip().replace("Z", "+00:00"))
+        return ts.astimezone(timezone.utc).replace(tzinfo=None) if ts.tzinfo else ts
     except ValueError:
         return None
 
@@ -63,7 +66,9 @@ def parse_file(path):
         published = card.select_one(".published-text")
         published_text = clean(published.get_text()) if published else ""
 
-        post_id = (bar.get("data-post-id") if bar else "") or detail
+        # The countdown bar disappears once a victim is published, so its post id is
+        # not stable across captures. The detail path is, so dedup on that.
+        post_id = detail or (bar.get("data-post-id") if bar else "")
 
         rows.append({
             "group": "safepay",
@@ -89,7 +94,9 @@ def main():
     args = ap.parse_args()
 
     seen, rows, dupes = set(), [], 0
-    for f in sorted(args.files):
+    # Newest capture first (filenames start with the capture date), so the
+    # current status and view count win over older captures.
+    for f in sorted(args.files, reverse=True):
         for row in parse_file(f):
             key = row["post_id"] or row["victim"].lower()
             if key in seen:
