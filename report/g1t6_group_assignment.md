@@ -43,11 +43,11 @@ TODO: add in analysis and evidence from own research from the dataset / visualiz
 
 ---
 
-## Q8. We know actors target sensitive data, but what kind of data do actors usually target? What are the kinds of data targeted in each industry? Show a breakdown comparing types of data stolen.
+## Q8. We know actors target sensitive data, but what kind of data do actors usually target? What are the kinds of data targeted in each industry? Show a breakdown comparing types of data stolen
 
 ---
 
-## Q9. Share 3 interesting insights you observed.
+## Q9. Share 3 interesting insights you observed
 
 ---
 

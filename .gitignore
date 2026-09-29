@@ -6,3 +6,4 @@ cookies.txt
 *.save
 __pycache__/
 *.pyc
+*.twbr
