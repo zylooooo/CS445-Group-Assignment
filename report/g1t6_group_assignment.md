@@ -131,3 +131,9 @@ These reasons explains why the manufactoring and healthcare industries are more 
 ---
 
 ## Q10. Share lessons learnt, what were your struggles in executing the project and how did you overcome them?
+
+Some of the problems that we faced during the project are stated below:
+
+1. **Lack of expertise to scrap data**. None of us have prior experience to web scraping before so we were all initially lost on what are the tools available and how we can proceed to scrape. Furthermore, the data leak sites are frequently tore down and reprovisioned on new mirror sites. There are multiple times where the site we were initially scraping were torn down and cannot be found again which means we have to find another source. To overcome this challenge, we allocated everyone to try scraping, doing our individual research and using generative AI models to generate potential scripts we can use for scraping. This allowed us to try multiple approaches in parallel. Ultimately, we reconvened on a dataset that is the most complete and allowed us to produce the most compelling visualizations.
+2. **Incomplete data sources**. On top of difficulties encountered while scraping, the data that is published on the data leak sites are mostly always incomplete. We need to experiment and explore which are the sites that provide us with the most complete dataset. Also, not all of the data that is published is enough to help us answer the questions. Hence, we need to conduct our own research on top of the collected results while ensuring that they are still within the time window stipulated in the assignment constraints.
+TODO: add more if possible
