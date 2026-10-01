@@ -87,9 +87,38 @@ We therefore see evidence of inflation or recycling in two of our five groups. H
 
 ## Q6. Does victim company size or revenue puts them at higher / lower risk of attacks by ransomware actors?
 
+Only INC Ransom and Global Secret Group publish victim revenue, so this answer uses their 359 posts. We performed data cleaning by dropping seven values below $100,000 (such as $1 and $16) as entry errors, and one $300B claim for a private-equity firm, which is likely assets under management rather than revenue. Every figure is the attacker's claim, not an audited number.
+
+**Victims cluster in small and lower mid-market firms.** Nearly half of the victims (47.9%) claim under $10M in revenue and 79% claim under $50M, while only 2.8% exceed $1B (\autoref{fig:q6}, left). The median victim reports $10.0M, and half fall between $5.0M and $32.9M. The two groups behave alike (\autoref{fig:q6}, right): INC's median is $10.0M and GSG's is $13.3M, so the pattern is not one group's preference.
+
+**Concentration is not the same as risk.** A leak site lists only victims, so it cannot give the attack rate for firms of a given size. That would require the number of firms in each band that were not attacked. A larger dataset gives context. Black Kite found that 73% of 13,336 ransomware victims with a known revenue (January 2023 to June 2026) earned $10M–$1B, a share that stayed between 72% and 75% every year[^blackkite]. Only 49% of our victims fall in that range, so these two groups reach further down into small firms than the wider market. Coveware put the median victim at 750 employees in Q2 2026, but called employee count "a weak predictor of extortion risk", with exposure "more closely tied to identity compromise, remote access, data sensitivity, third-party dependencies"[^coveware].
+
+**Size changes the type of risk.** Mid-market firms earn enough to pay a meaningful ransom but have less capacity to find and fix flaws. Black Kite reports that mid-market vendors take 197 days on average to detect a flaw and 60 to fix it, against 14 and 21 days for large enterprises using AI-powered scanning[^blackkite]. Coveware adds that large enterprises face more targeted, identity-based attacks, while smaller firms are more often breached through unpatched vulnerabilities and compromised remote access[^coveware]. Victims under $1M remain rare (2.5%), which fits the same logic, since they have little to pay.
+
+In conclusion, size and revenue affectrs risk to a certain extent. In our data, ransomware actors mostly hit small and lower mid-market firms, making up over 79%. Firms that are small (under $1M) or large firms (over $1B) only make up about 5% of the claimed victims. Leak site data alone cannot prove that these firms are atacked more often than other firms. This is because firms that were never attacked or firms that already paid off the ransom are missing. Still, our analysis and research uncovers a trade-off attackers exploit. Firms that are large enough to pay a meaningful ransom but too small to find and fix flaws quckly are targeted more frequently. Revenue on its own is not enough to indicate increased risks of attacks.
+
+![Claimed revenue of INC Ransom and Global Secret Group victims, Jan–Sep 2026. Left: share of victims by revenue band. Right: each victim on a log scale, with box plots showing the median and interquartile range per group.](assets/Q6.png){#fig:q6 width=100%}
+
+[^blackkite]: Black Kite, ["2026 Mid-Market Ransomware Report"](https://blackkite.com/reports/2026-mid-market-report), 18 Aug 2026.
+[^coveware]: Coveware, ["Adverse cyber extortions are more common than commonly advised"](https://coveware.com/2026/07/adverse-cyber-extortions-are-more-common-than-commonly-advised/), 29 Jul 2026.
+
 ---
 
 ## Q7. Which Industries Are More Prone To Ransomware Threats? Why?
+
+According to our data, **Manufacturing** is the industry most exposed to ransomware in our data, followed by Construction and Healthcare. Of the 1,497 posts we scraped, 234 has no named industry. There were also 131 Qilin posts that carry only the generic label "Business Services", so we decided to exclude that from our analysis. The leaves us with 1,132 posts with a usable industry classification.
+
+On further analysis, **the pattern holds across groups, with some specialisation**. Manufacturing is the largest industry for four of the five groups, from 15.0% of GSG's posts to 21.3% of SafePay. The exception is in INC Ransom and it can be explained by the group's deliberate targeting preference. INC Ransom's top group is Healthcare at 14.8% which is consistent with its reported focus on holders of sensitve data[^cyble].
+
+Some industries are targeted more than others by Ransomware threats because of these three reasons that pressures victims to pay.
+
+1. **Downtime**. Industrial ransomware can produce operational downtime and cause precautionary shutdowns even without attacking control systems directly[^dragos]. Every idle hour cousts a manufacturer or construction firm money. To prevent monetary loss, victims are more likely to pay the ransom, making them a preferred target for ransomware threat actors.
+2. **Supply-chain position**. Manufacturing companies are usually part of a larger supply chain. Being compromised will affect production and affects supplies for consumers down in the supply chain. Attacking manufacturing companies will cause maximum inconvinience for the victims, making them more likely to pay to prevent the inconvinience.
+3. **Data sensitivity**. Looking at the other top targeted industries, data sensitivity contributes to the reason why they are targeted. For example the healthcare industry (INC Ransom's top targeted industry), has low downtime tolerance. Victims who hold large amounts of sensitve data and cannot operate without them makes them prime targets for ransomware attackers. And when attacked, victims need to pay the ransom or they risk operational downtime.
+
+These reasons explains why the manufactoring and healthcare industries are more prone to ransomware threats according to our scraped data.
+
+![Leak-site posts by industry, colored by industry source (left) & each industry's share of individual group's posts for the top 10 most targeted industries (right)](assets/Q7.png){#fig:q7 width=100%}
 
 ---
 
