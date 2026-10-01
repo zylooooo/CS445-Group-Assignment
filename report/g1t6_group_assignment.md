@@ -95,7 +95,7 @@ Only INC Ransom and Global Secret Group publish victim revenue, so this answer u
 
 **Size changes the type of risk.** Mid-market firms earn enough to pay a meaningful ransom but have less capacity to find and fix flaws. Black Kite reports that mid-market vendors take 197 days on average to detect a flaw and 60 to fix it, against 14 and 21 days for large enterprises using AI-powered scanning[^blackkite]. Coveware adds that large enterprises face more targeted, identity-based attacks, while smaller firms are more often breached through unpatched vulnerabilities and compromised remote access[^coveware]. Victims under $1M remain rare (2.5%), which fits the same logic, since they have little to pay.
 
-In conclusion, size and revenue affectrs risk to a certain extent. In our data, ransomware actors mostly hit small and lower mid-market firms, making up over 79%. Firms that are small (under $1M) or large firms (over $1B) only make up about 5% of the claimed victims. Leak site data alone cannot prove that these firms are atacked more often than other firms. This is because firms that were never attacked or firms that already paid off the ransom are missing. Still, our analysis and research uncovers a trade-off attackers exploit. Firms that are large enough to pay a meaningful ransom but too small to find and fix flaws quckly are targeted more frequently. Revenue on its own is not enough to indicate increased risks of attacks.
+In conclusion, size and revenue affects risk to a certain extent. In our data, ransomware actors mostly hit small and lower mid-market firms, making up over 79%. Firms that are small (under $1M) or large firms (over $1B) only make up about 5% of the claimed victims. Leak site data alone cannot prove that these firms are attacked more often than other firms. This is because firms that were never attacked or firms that already paid off the ransom are missing. Still, our analysis and research uncovers a trade-off attackers exploit. Firms that are large enough to pay a meaningful ransom but too small to find and fix flaws quickly are targeted more frequently. Revenue on its own is not enough to indicate increased risks of attacks.
 
 ![Claimed revenue of INC Ransom and Global Secret Group victims, Jan–Sep 2026. Left: share of victims by revenue band. Right: each victim on a log scale, with box plots showing the median and interquartile range per group.](assets/Q6.png){#fig:q6 width=100%}
 
@@ -106,23 +106,47 @@ In conclusion, size and revenue affectrs risk to a certain extent. In our data, 
 
 ## Q7. Which Industries Are More Prone To Ransomware Threats? Why?
 
-According to our data, **Manufacturing** is the industry most exposed to ransomware in our data, followed by Construction and Healthcare. Of the 1,497 posts we scraped, 234 has no named industry. There were also 131 Qilin posts that carry only the generic label "Business Services", so we decided to exclude that from our analysis. The leaves us with 1,132 posts with a usable industry classification.
+According to our data, **Manufacturing** is the industry most exposed to ransomware in our data, followed by Construction and Healthcare. Of the 1,497 posts we scraped, 234 have no named industry. There were also 131 Qilin posts that carry only the generic label "Business Services", so we decided to exclude that from our analysis. This leaves us with 1,132 posts with a usable industry classification.
 
-On further analysis, **the pattern holds across groups, with some specialisation**. Manufacturing is the largest industry for four of the five groups, from 15.0% of GSG's posts to 21.3% of SafePay. The exception is in INC Ransom and it can be explained by the group's deliberate targeting preference. INC Ransom's top group is Healthcare at 14.8% which is consistent with its reported focus on holders of sensitve data[^cyble].
+On further analysis, **the pattern holds across groups, with some specialisation**. Manufacturing is the largest industry for four of the five groups, from 15.0% of GSG's posts to 21.3% of SafePay. The exception is in INC Ransom and it can be explained by the group's deliberate targeting preference. INC Ransom's top group is Healthcare at 14.8% which is consistent with its reported focus on holders of sensitive data[^cyble].
 
 Some industries are targeted more than others by Ransomware threats because of these three reasons that pressures victims to pay.
 
-1. **Downtime**. Industrial ransomware can produce operational downtime and cause precautionary shutdowns even without attacking control systems directly[^dragos]. Every idle hour cousts a manufacturer or construction firm money. To prevent monetary loss, victims are more likely to pay the ransom, making them a preferred target for ransomware threat actors.
-2. **Supply-chain position**. Manufacturing companies are usually part of a larger supply chain. Being compromised will affect production and affects supplies for consumers down in the supply chain. Attacking manufacturing companies will cause maximum inconvinience for the victims, making them more likely to pay to prevent the inconvinience.
-3. **Data sensitivity**. Looking at the other top targeted industries, data sensitivity contributes to the reason why they are targeted. For example the healthcare industry (INC Ransom's top targeted industry), has low downtime tolerance. Victims who hold large amounts of sensitve data and cannot operate without them makes them prime targets for ransomware attackers. And when attacked, victims need to pay the ransom or they risk operational downtime.
+1. **Downtime**. Industrial ransomware can produce operational downtime and cause precautionary shutdowns even without attacking control systems directly[^dragos]. Every idle hour costs a manufacturer or construction firm money. To prevent monetary loss, victims are more likely to pay the ransom, making them a preferred target for ransomware threat actors.
+2. **Supply-chain position**. Manufacturing companies are usually part of a larger supply chain. Being compromised will affect production and affects supplies for consumers down in the supply chain. Attacking manufacturing companies will cause maximum inconvenience for the victims, making them more likely to pay to prevent the inconvenience.
+3. **Data sensitivity**. Looking at the other top targeted industries, data sensitivity contributes to the reason why they are targeted. For example the healthcare industry (INC Ransom's top targeted industry), has low downtime tolerance. Victims who hold large amounts of sensitive data and cannot operate without them makes them prime targets for ransomware attackers. And when attacked, victims need to pay the ransom or they risk operational downtime.
 
-These reasons explains why the manufactoring and healthcare industries are more prone to ransomware threats according to our scraped data.
+These reasons explains why the manufacturing and healthcare industries are more prone to ransomware threats according to our scraped data.
 
 ![Leak-site posts by industry, colored by industry source (left) & each industry's share of individual group's posts for the top 10 most targeted industries (right)](assets/Q7.png){#fig:q7 width=100%}
 
 ---
 
 ## Q8. We know actors target sensitive data, but what kind of data do actors usually target? What are the kinds of data targeted in each industry? Show a breakdown comparing types of data stolen
+
+Out of the five groups, only INC Ransom regularly states what data it has stolen. Of the 1,497 posts we scraped, only 52 name the kinds of data taken (50 from INC Ransom and 2 from DragonForce). We grouped the keywords in each post's description into ten data types. DragonForce and GSG only publish how much data they stole, while Qilin and SafePay publish neither. Our answer is therefore based mostly on INC Ransom's own posts, which are written to pressure the victim and may not describe the breach accurately.
+
+**Actors steal everything first, then advertise the most damaging parts.** Databases and backups are the most common, appearing in 63% of the posts. This is followed by financial and accounting records (42%), corporate confidential documents (38%), legal files and contracts (29%), personal data and employee records (25% each), and engineering or R&D files (23%) (\autoref{fig:q8}, left). On average, each post names 2.8 types of data, which suggests that attackers copy whole file servers instead of picking out specific files. The data volumes in Q4 support this, with DragonForce stealing a median of 123 GB per victim and GSG 211 GB. This is in line with Coveware's Q2 2026 cases, where data was exfiltrated in 76% of attacks[^coveware]. DragonForce even offers its affiliates a "data audit" service that goes through stolen datasets larger than 300 GB to find the material that gives the most leverage over the victim[^checkpoint].
+
+On further analysis, **the type of data stolen changes with the industry of the victim** (\autoref{fig:q8}, right). As the sample sizes are small, these should be read as general patterns rather than exact measurements.
+
+1. **Health & Finance**. These victims lose the most heavily regulated data. Financial records appear in 5 of 6 posts, while medical and personal data appear in 3 of 6 posts each. A leak of patient or customer records can lead to fines and lawsuits for the victim, which gives the attacker more leverage to demand payment. Coveware also observed that attackers are more selective when the stolen data creates legal or regulatory pressure on the victim[^coveware].
+2. **Manufacturing**. Almost all of these posts (9 of 11) mention databases and backups. The posts also advertise technical knowledge such as product designs, test reports and production processes, which competitors could use and which the victim cannot easily replace.
+3. **Other Industrial**. Construction, energy and engineering firms mostly lose corporate documents, contracts and engineering files (2 of 7 posts each). None of these posts mention personal or employee data.
+
+The examples below from INC Ransom's leak site show how the advertised data matches the victim's business. These are snippets from the dataset that we scrapped across the 5 ransomware groups.
+
+| **Victim (industry, post date)**                 | **Data the leak site claims was stolen**                                                                |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| Rheem (Manufacturing, 20 Apr 2026)               | Technical documentation, drawings, test reports, employee personal data, NDAs and financial information |
+| Kiswire (Manufacturing, 23 Mar 2026)             | Manufacturing technologies, product assembly schemes, material specifications and product tests         |
+| RBH Aerospace (Aerospace & Defence, 11 May 2026) | Contracts and NDAs, 3D model files and part drawings "including those for F-15, F-22"                   |
+| Foresee Pharmaceuticals (Pharma, 18 Aug 2026)    | Drug master files, FDA/EMA submissions, R&D, financial statements and clinical study reports            |
+| Callagy Law (Legal, 27 Jan 2026)                 | Court hearing materials, litigation case files and clients' personal and medical data                   |
+
+From the table, INC Ransom advertises whatever the victim can least afford to have published. For manufacturers, these are product designs. For drug makers, these are regulatory filings and clinical data. For law firms, these are client and case files. This is consistent with INC Ransom's reported preference for victims that hold sensitive data[^cyble], as the threat of publishing such data puts more pressure on the victim to pay.
+
+![Data types named on leak sites (left) and by sector (right), Jan-Sep 2026. n = 52 posts (INC Ransom 50, DragonForce 2), of which 39 have a known industry.](assets/Q8.png){#fig:q8 width=100%}
 
 ---
 
