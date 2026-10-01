@@ -152,6 +152,34 @@ From the table, INC Ransom advertises whatever the victim can least afford to ha
 
 ## Q9. Share 3 interesting insights you observed
 
+**Insight 1: The groups follow their own "no-go" rules, and the rules show up in our data.**
+
+Many ransomware groups forbid their affiliates from attacking certain countries. According to the BSI, Germany's federal cyber security agency, Qilin affiliates are not allowed to attack organisations in the Commonwealth of Independent States (CIS) or in BRICS countries, and SafePay affiliates are not allowed to attack the CIS[^bsi]. We wanted to see whether these rules can be seen in what the groups actually post.
+
+Across all five groups, none of the victims with a known country is located in a CIS country. Qilin and SafePay also have no victims in any BRICS country, while the other three groups do, ranging from 7.1% of INC Ransom's victims to 14.3% of GSG's (\autoref{fig:q9a}). The contrast is clearest in South America. Qilin posted 14 victims from Argentina but none from Brazil, even though Brazil has the larger economy and is right next door. SafePay's BRICS avoidance is not mentioned by the BSI, so our data suggests it follows a similar unwritten rule.
+
+One limitation is that Qilin's countries were inferred from website domains. However, domains such as `.br`, `.in` and `.cn` are common, so if Qilin had posted victims from these countries, at least some of them would have shown up. These rules also tell us something about who the attackers are. Groups that avoid CIS countries are generally assumed to be based in or linked to Russia, as staying away from local victims lowers their risk of being arrested at home.
+
+![Share of each group's victims (with a known country) located in BRICS countries, Jan-Sep 2026. No group has a victim in a CIS country.](assets/Q9a.png){#fig:q9a width=100%}
+
+**Insight 2: SafePay is the only group that targets Germany first.**
+
+In Q1, Germany was the second most targeted country. On further analysis, this ranking is mostly driven by one group. Four of our five groups mainly target the United States, which makes up between 47.5% and 66.7% of their victims with a known country. SafePay is the exception. 30.2% of its victims are German (45 of 149), compared to only 18.8% from the United States (\autoref{fig:q9b}). SafePay alone accounts for 45 of the 81 German victims in our dataset, which is 56%.
+
+The BSI also noticed that SafePay's leak site names an above average number of German victims, and stated that it does not know the reason for this[^bsi]. One possible explanation is how SafePay is organised. Check Point describes SafePay as a centralised operation that does not rely on affiliates[^checkpoint]. In a RaaS group like Qilin, many different affiliates choose their own targets, so the victims spread out across many countries. In a centralised group, a small core team chooses the targets, so its own preferences, such as language skills or the initial access it is able to buy, show up much more clearly in the victim list.
+
+![Victims by country for each group, Jan-Sep 2026. Qilin is excluded as its countries are inferred from website domains.](assets/Q9b.png){#fig:q9b width=100%}
+
+**Insight 3: Each group publishes on its own schedule, so a post date is not an attack date.**
+
+When we broke down the posts by day of the week, SafePay stood out again. 53.9% of its posts were published on a Monday and none on a Sunday (\autoref{fig:q9c}). Its 152 posts were published on only 36 different days, in batches of up to 10 victims at a time. The other groups post throughout the week, including weekends, with no single day taking more than 25% of their posts. This fits the difference in how the groups are run. A centralised team like SafePay seems to publish on a weekly routine, while RaaS groups publish whenever each affiliate's negotiation fails.
+
+This matters when interpreting leak site data. A post date only tells us when the group decided to publish the victim, not when the attack happened. According to the BSI, SafePay usually names victims about 10 days after they refuse to negotiate, and Qilin about 2 weeks after[^bsi]. Publishing can also stop completely. SafePay posted only 3, 8 and 9 victims in February, March and April, which lines up with Check Point's observation that SafePay's leak site was inactive from mid-March to early April 2026[^checkpoint]. Because of this, the monthly trends in Q3 partly reflect each group's publishing habits rather than the actual number of attacks.
+
+![Share of each group's posts published on each day of the week, Jan-Sep 2026. Global Secret Group is excluded as its dates come from an aggregator.](assets/Q9c.png){#fig:q9c width=100%}
+
+[^bsi]: BSI, ["Active crime groups in Germany"](https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Cyber-Sicherheitslage/Analysen-und-Prognosen/Threat-Intelligence/Aktive-Crime-Gruppen/aktive-crime-gruppen_node.html), status as of 13 Apr 2026.
+
 ---
 
 ## Q10. Share lessons learnt, what were your struggles in executing the project and how did you overcome them?
