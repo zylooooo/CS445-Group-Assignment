@@ -14,9 +14,9 @@ output: pdf_document
 
 ## Q1. What countries are most Targeted By Ransomware Actors?
 
-The United States is by the most targeted by ransomware actors, with 356 claimed ransomware victims. This can be seen from \autoref{fig:q1} on the choropleth where United States is the darkest region and in the bar chart where United States leads the other countries. Across the 1,497 leak-site posts scraped across five ransomware groups, 967 of these posts can be tied to a country. United states accounts for 36.8% of all identifiable claimed victims. This is more than four times Germany in second place (8.4%). From \autoref{fig:q1}, we can also see that nine of the top ten targeted countries are high-income economies in North America, Western Europe and Asia-Pacific, with the exception of Argentina.
+The United States is by the most targeted by ransomware actors, with 356 claimed ransomware victims. This can be seen from \autoref{fig:q1} on the choropleth where United States is the darkest region and in the bar chart where United States leads the other countries. Across the 1,497 leak-site posts scraped across five ransomware groups, 967 of these posts can be tied to a country. United States accounts for 36.8% of all identifiable claimed victims. This is more than four times Germany in second place (8.4%). From \autoref{fig:q1}, we can also see that nine of the top ten targeted countries are high-income economies in North America, Western Europe and Asia-Pacific, with the exception of Argentina.
 
-One limitation when analyzing this question is that Qilin does not state victim countries, so we inferred them from website domains. This left 463 of it's 675 victims unidentified, most of them on `.com` domains. These figures also only account for victims that ransomware attackers choose to publish and are unverifiable, not all attacks that actually happen.
+One limitation when analyzing this question is that Qilin does not state victim countries, so we inferred them from website domains. This left 463 of its 675 victims unidentified, most of them on `.com` domains. These figures also only account for victims that ransomware attackers choose to publish and are unverifiable, not all attacks that actually happen.
 
 ![Choropleth showing logarthmic color scale of victim count across countries (left) and top 10 countries with claimed victims](assets/Q1.png){#fig:q1 width=100%}
 
@@ -64,9 +64,13 @@ The other groups succeed with different playbooks:
 | Global Secret Group | No verified TTP reporting; its access methods, malware and affiliate model remain unknown[^cyberedition]                                                                                   | Most detailed listings in our set: country, industry, headcount and data size for all 42 victims (median 211 GB), revenue for 41, but no post dates |
 
 [^cyberedition]: The Cyber Edition, ["Global Secret Group Ransomware Claims Over 202,000 Victims on New Leak Site"](https://thecyberedition.com/global-secret-group-ransomware-claims-over-202000-victims-on-new-leak-site/), 27 Jul 2026.
+
 [^dragos]: Dragos, ["Industrial Ransomware Analysis for Q2 2026"](https://www.dragos.com/blog/dragos-industrial-ransomware-analysis-q2-2026), 10 Aug 2026.
+
 [^checkpoint]: Check Point Research, ["The State of Ransomware – Q1 2026"](https://research.checkpoint.com/2026/the-state-of-ransomware-q1-2026/), 11 May 2026.
+
 [^arcticwolf]: Arctic Wolf Labs, ["Exploitation of CVE-2026-0257 Leads to Qilin Ransomware"](https://arcticwolf.com/resources/blog/exploitation-of-cve-2026-0257-leads-to-qilin-ransomware/), 20 Jul 2026.
+
 [^cyble]: Cyble, ["Ransomware Threats in the Americas H1 2026"](https://cyble.com/blog/ransomware-threats-in-america-h1-2026/), 14 Aug 2026.
 
 ---
@@ -100,6 +104,7 @@ In conclusion, size and revenue affects risk to a certain extent. In our data, r
 ![Claimed revenue of INC Ransom and Global Secret Group victims, Jan–Sep 2026. Left: share of victims by revenue band. Right: each victim on a log scale, with box plots showing the median and interquartile range per group.](assets/Q6.png){#fig:q6 width=100%}
 
 [^blackkite]: Black Kite, ["2026 Mid-Market Ransomware Report"](https://blackkite.com/reports/2026-mid-market-report), 18 Aug 2026.
+
 [^coveware]: Coveware, ["Adverse cyber extortions are more common than commonly advised"](https://coveware.com/2026/07/adverse-cyber-extortions-are-more-common-than-commonly-advised/), 29 Jul 2026.
 
 ---
@@ -112,7 +117,7 @@ On further analysis, **the pattern holds across groups, with some specialisation
 
 Some industries are targeted more than others by Ransomware threats because of these three reasons that pressures victims to pay.
 
-1. **Downtime**. Industrial ransomware targeting manufacturing and constuction can produce operational downtime and cause precautionary shutdowns even without attacking control systems directly[^dragos]. Every idle hour costs a manufacturer or construction firm money. To prevent monetary loss, victims are more likely to pay the ransom, making them a preferred target for ransomware threat actors. Likewise for Healthcare industry. They hold many critical information that is crucial for their operation. For example, their database containing all patient's Protected Healthcare Information (PHI) like blood type, drug allergies *etc.*. Lack of access to these important data might be a life and death situation for patients. The low tolerance for downtime in their operations puts more pressure on victims to pay the ransom, making them better targets.
+1. **Downtime**. Industrial ransomware targeting manufacturing and constuction can produce operational downtime and cause precautionary shutdowns even without attacking control systems directly[^dragos]. Every idle hour costs a manufacturer or construction firm money. To prevent monetary loss, victims are more likely to pay the ransom, making them a preferred target for ransomware threat actors. Likewise for Healthcare industry. They hold many critical information that is crucial for their operation. For example, their database containing all patient's Protected Healthcare Information (PHI) like blood type, drug allergies _etc._. Lack of access to these important data might be a life and death situation for patients. The low tolerance for downtime in their operations puts more pressure on victims to pay the ransom, making them better targets.
 2. **Supply-chain position**. Manufacturing companies are usually part of a larger supply chain. Being compromised will affect production and affects supplies for consumers down in the supply chain. Attacking manufacturing companies will cause maximum inconvenience for the victims, making them more likely to pay to prevent the inconvenience.
 3. **Data sensitivity**. Looking at the other top targeted industries, data sensitivity contributes to the reason why they are targeted. For example the healthcare industry (INC Ransom's top targeted industry), holds alot of sensitive data. PHI is considered highly sensitive and when compromised or leaked will reveal intimate personal details that, can lead to severe discrimination, social stigma, financial harm or identity theft.
 
@@ -188,4 +193,4 @@ Some of the problems that we faced during the project are stated below:
 
 1. **Lack of expertise to scrap data**. None of us have prior experience to web scraping before so we were all initially lost on what are the tools available and how we can proceed to scrape. Furthermore, the data leak sites are frequently tore down and reprovisioned on new mirror sites. There are multiple times where the site we were initially scraping were torn down and cannot be found again which means we have to find another source. To overcome this challenge, we allocated everyone to try scraping, doing our individual research and using generative AI models to generate potential scripts we can use for scraping. This allowed us to try multiple approaches in parallel. Ultimately, we reconvened on a dataset that is the most complete and allowed us to produce the most compelling visualizations.
 2. **Incomplete data sources**. On top of difficulties encountered while scraping, the data that is published on the data leak sites are mostly always incomplete. We need to experiment and explore which are the sites that provide us with the most complete dataset. Also, not all of the data that is published is enough to help us answer the questions. Hence, we need to conduct our own research on top of the collected results while ensuring that they are still within the time window stipulated in the assignment constraints.
-TODO: add more if possible
+   TODO: add more if possible
