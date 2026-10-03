@@ -61,7 +61,7 @@ Most of these groups' techniques are not unique: all of them steal data before e
 The other groups succeed with different playbooks:
 
 | **Group**           | **Reported by researchers**                                                                                                                                                                  | **Our scraped data**                                                                                                                                |
-| ------------- | ---------------------------------------- | ---------------------------------------- |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | INC Ransom          | Specialises by sector, preferring law firms and other holders of sensitive data [@cyble]                                                                                                     | Leads our legal and healthcare categories; publishes revenue for every victim; only 50% of posts are labelled "Encrypted"                           |
 | DragonForce         | "Cartel" branding; a data audit service that mines stolen datasets over 300 GB for leverage [@checkpoint]; one affiliate hid command-and-control traffic in Microsoft Teams relays [@dragos] | States the stolen data volume for every victim (median 123 GB)                                                                                      |
 | SafePay             | Centralised, non-RaaS operation [@checkpoint]                                                                                                                                                | Identical 72-hour deadline for every victim                                                                                                         |
@@ -137,7 +137,7 @@ From the table, INC Ransom advertises whatever the victim can least afford to ha
 
 ## Q9. Share 3 interesting insights you observed
 
-### Insight 1: The groups follow their own "no-go" rules, and the rules show up in our data.
+### Insight 1: The groups follow their own "no-go" rules, and the rules show up in our data
 
 Many ransomware groups forbid their affiliates from attacking certain countries. According to the BSI, Germany's federal cyber security agency, Qilin affiliates are not allowed to attack organisations in the Commonwealth of Independent States (CIS) or in BRICS countries, and SafePay affiliates are not allowed to attack the CIS [@bsi]. We wanted to see whether these rules can be seen in what the groups actually post.
 
@@ -147,7 +147,7 @@ One limitation is that Qilin's countries were inferred from website domains. How
 
 ![Share of each group's victims (with a known country) located in BRICS countries, Jan-Sep 2026. No group has a victim in a CIS country.](assets/Q9a.png){#fig:q9a height=6.5cm}
 
-### Insight 2: SafePay is the only group that targets Germany first.
+### Insight 2: SafePay is the only group that targets Germany first
 
 In Q1, Germany was the second most targeted country. On further analysis, this ranking is mostly driven by one group. Four of our five groups mainly target the United States, which makes up between 47.5% and 66.7% of their victims with a known country. SafePay is the exception. 30.2% of its victims are German (45 of 149), compared to only 18.8% from the United States (\autoref{fig:q9b}). SafePay alone accounts for 45 of the 81 German victims in our dataset, which is 56%.
 
@@ -155,7 +155,7 @@ The BSI also noticed that SafePay's leak site names an above average number of G
 
 ![Victims by country for each group, Jan-Sep 2026. Qilin is excluded as its countries are inferred from website domains.](assets/Q9b.png){#fig:q9b height=6.5cm}
 
-### Insight 3: Each group publishes on its own schedule, so a post date is not an attack date.
+### Insight 3: Each group publishes on its own schedule, so a post date is not an attack date
 
 When we broke down the posts by day of the week, SafePay stood out again. 53.9% of its posts were published on a Monday and none on a Sunday (\autoref{fig:q9c}). Its 152 posts were published on only 36 different days, in batches of up to 10 victims at a time. The other groups post throughout the week, including weekends, with no single day taking more than 25% of their posts. This fits the difference in how the groups are run. A centralised team like SafePay seems to publish on a weekly routine, while RaaS groups publish whenever each affiliate's negotiation fails.
 
