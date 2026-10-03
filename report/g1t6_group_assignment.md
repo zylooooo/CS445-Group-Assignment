@@ -1,11 +1,15 @@
 ---
-title: "CS445 G1T6 Group Assignment"
-author: "Loo Zhi Yi, Sean Elisha Koh Tze Li, Tan Li Quan, Keegan Ravindran, Darren Ong Zhi Zhan, Ingid Størdal Prestegard"
-date: "2 October, 2026"
+title: "CS445 G1T6 Group Assignment - Ransomware Leak-Site Analysis"
+subtitle: "Five groups, 1,497 scraped victim posts from January - September 2026"
+author: "Loo Zhi Yi, Sean Elisha Koh Tze Li, Keegan Ravindran, Darren Ong Zhi Zhan, Tan Li Quan, Ingid Størdal Prestegard"
+date: "4 October, 2026"
+titlepage: true
+titlepage-rule-color: "1F3A5F"
+titlepage-rule-height: 4
+toc: false
 geometry: "top=2cm, bottom=2cm, left=2.5cm, right=2.5cm"
-fontsize: 8pt
+fontsize: 11pt
 highlight: tango
-titlepage: false
 colorlinks: true
 listings-no-page-break: true
 code-block-font-size: \scriptsize
@@ -40,7 +44,7 @@ Leak sites do not reveal whether a ransom was paid, so "success" can only be inf
 
 Finally, Qilin is the leading poster in 18 of our 26 industry categories, so it does not depend on a single victim niche.
 
-![Leak-site posts per group (left) and per month (right), Jan–Sep 2026. September covers 1–28 Sep. Global Secret Group is omitted from the monthly chart because its site shows no post dates.](assets/Q3.png){#fig:q3 width=100%}
+![Leak-site posts per group (left) and per month (right), Jan–Sep 2026. September covers 1–28 Sep.](assets/Q3.png){#fig:q3 width=100%}
 
 ---
 
